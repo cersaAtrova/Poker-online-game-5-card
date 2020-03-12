@@ -23,13 +23,13 @@
 # End of https://www.gitignore.io/api/code,linux
 /.env.local   <-- local config
 /.env.*.local   <-- local config
-/var/
-/vendor/
+/var/   <-- cache and logs
+/vendor/   <-- dependencies installed through Composer
 
 # PHPUnit
-/phpunit.xml
-.phpunit.result.cache
+/phpunit.xml   <-- local PHPUnit config used for overriding the default phpunit.xml.dist
+.phpunit.result.cache   <-- PHPUnit cache files
 
 # PHPCS
-/phpcs.xml
-.php_cs.cache
+/phpcs.xml   <-- local PHPCS config used for overriding the default phpcs.xml.dist
+.php_cs.cache   <-- PHPCS cache file

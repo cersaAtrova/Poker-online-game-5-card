@@ -1,0 +1,61 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+
+}
+
+:root {
+    font-size: 16px;
+    font-family: 'Oxygen', sans-serif;
+}
+
+body {
+    position: relative;
+}
+
+.body {
+    background-image: url('https://i.pinimg.com/originals/9e/07/1a/9e071a09af668c11512375ab1b8bdb3b.jpg');
+    background-attachment: fixed;
+    background-size: auto;
+    /* background-size:100% 100%; */
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
+}
+
+.logo {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -60%);
+}
+
+.play {
+    padding: 1.5rem 7rem;
+    font-size: 2rem;
+    color: white;
+    border-radius: 150px;
+    background-color: rgb(185, 16, 16);
+}
+
+.play:hover {
+    cursor: pointer;
+}
+
+.submit {
+    width: max-content;
+    border-radius: 50px;
+    border: 4px solid goldenrod;
+}
+
+form {
+    border-radius: 150px;
+    background-color: rgb(185, 16, 16);
+
+    position: absolute;
+    left: 50%;
+
+    bottom: 15%;
+    transform: translate(-50%, -85%);
+}
