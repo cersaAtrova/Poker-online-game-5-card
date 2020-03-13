@@ -2,6 +2,8 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    text-decoration: none;
+    list-style: none;
 
 }
 
@@ -14,14 +16,15 @@ body {
     position: relative;
 }
 
-.body {
-    background-image: url('https://i.pinimg.com/originals/9e/07/1a/9e071a09af668c11512375ab1b8bdb3b.jpg');
+.home-body-cover {
+
+    background-image: url('images/back.jpg');
     background-attachment: fixed;
-    background-size: auto;
-    /* background-size:100% 100%; */
+    background-size: 100% 100%;
     background-repeat: no-repeat;
     height: 100vh;
     width: 100%;
+
 }
 
 .logo {
@@ -29,33 +32,163 @@ body {
     left: 50%;
     top: 40%;
     transform: translate(-50%, -60%);
+
 }
 
-.play {
-    padding: 1.5rem 7rem;
-    font-size: 2rem;
+/* button submit style */
+.btn-game {
     color: white;
     border-radius: 150px;
     background-color: rgb(185, 16, 16);
-}
 
-.play:hover {
-    cursor: pointer;
 }
 
 .submit {
-    width: max-content;
+    width: fit-content;
     border-radius: 50px;
     border: 4px solid goldenrod;
 }
 
-form {
-    border-radius: 150px;
-    background-color: rgb(185, 16, 16);
+/* first form submit button */
+.play {
 
+    padding: 1.5rem 7rem;
+    font-size: 2rem;
+
+}
+
+.play:hover,
+form#play-game:hover {
+    cursor: pointer;
+    background-color: rgba(22, 20, 20, 0.918);
+    color: rgba(255, 255, 255, 0.472);
+
+}
+
+form#play-game {
+    border-radius: 150px;
+    width: max-content;
     position: absolute;
     left: 50%;
+    bottom: 10%;
+    transform: translate(-50%, 10%)
+}
 
-    bottom: 15%;
-    transform: translate(-50%, -85%);
+/* styling the record text */
+.record {
+    position: absolute;
+    left: 50%;
+    bottom: 5%;
+    color: yellow;
+    transform: translate(-50%, 10%)
+}
+
+
+
+/* display game page */
+/* print the cover page */
+.game-body-cover {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-image: url('images/game-bg.png');
+    background-repeat: repeat;
+    z-index: -999;
+}
+
+.game-inner {
+    position: relative;
+    width: 80%;
+    height: 80%;
+    padding-top: 5rem;
+    margin: auto;
+}
+
+/* draw the poker-table */
+.poker-table {
+    width: 70%;
+    height: 70%;
+    background-image: url('https://pharaohusa.com/wp-content/uploads/2017/09/holdem-poker-layout-3-red.png');
+    background-position: center;
+    background-size: cover;
+    border-radius: 50%;
+    border: 2em solid rgb(27, 11, 2);
+    box-shadow: 1em 1em 2em 1em black;
+    position: absolute;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -70%);
+    z-index: -90;
+}
+
+/* add the poker-chips under the poker-table in the center   */
+.poker-chips-box {
+    width: max-content;
+    position: absolute;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -45%);
+    z-index: 1;
+}
+
+.chip:hover {
+    transform: scale(1.05) !important;
+}
+
+.info {
+    width: max-content;
+    float: right;
+}
+.player-amount{
+    width: 5%;
+    height: 5%;
+    font-size: 3rem;
+    position: fixed;
+    top: 5%;
+    left: 45%;
+    color: blanchedalmond;
+    transform: translate(-40%,0);
+        
+}
+
+.fast-cash,
+.cash-out {
+    width: 15rem;
+    font-size: 2em;
+    padding: 0.5em 1em;
+
+
+}
+
+#frm-fast-cash,
+#frm-cash-out {
+    width: max-content;
+    border-radius: 150px;
+    background-color: rgb(185, 16, 16);
+}
+
+#frm-cash-out {
+    margin-top: 10px;
+}
+
+.frm-deal {
+    width: 40%;
+    position: relative;;
+    top: 70%;
+    left: 50%;
+    
+    display: flex;
+    flex-direction: column;
+}
+.deal,
+.showdown {
+    width: 15rem;
+    font-size: 2em;
+    padding: 0.5em 1em;
+}
+.form-cotainer-submit{
+
+    display: flex;   
+    justify-content: space-around;  
+    transform: translate(-50%, -30%);
 }

@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (empty($_SESSION)) {
+    $_SESSION['poker'] = array();
+} else {
+    //get the maximum winning record that player Cashout 
+    $_SESSION['poker']['record'] = max($_SESSION['poker']['record']);
+}
+
+?>
+
 <!DOCTYPE html>
 
 <head>
@@ -6,29 +17,39 @@
     <title></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="style.css">
-
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script> -->
-    <link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Oxygen&display=swap" rel="stylesheet">
 </head>
 
 <body>
-     <?php if(!isset($_GET['submit'])) : ?>
+   
         <!-- Create the home page -->
-      <div class="body">
-         
-      <img class="logo" src="images/logo.png" alt="dice logo">
-        <form action="index.php" method="GET">
-            <div class="submit">
-            <input type="submit" value="Play Now" name="submit" class="play">
-            </div>
-        </form>
-        <!-- Shows the best records of the player -->
-        <p><?php echo "Your Best Record is: $record" ;  ?></p>
-    </div>
-            <?php endif ?>
+        <div class="home-body-cover">
+
+            <img class="logo" src="images/logo.png" alt="dice logo">
+            <form action="display_game.php" method="GET" id="play-game">
+                <div class="submit">
+                    <input type="submit" value="Play Now" name="submit" class="play btn-game">
+
+                </div>
+            </form>
+            <!-- Shows the best records of the player -->
+            <?php if (!empty($_SESSION['poker']['record'])) {
+                echo  "<p class='record'>Your Best Record is: {$_SESSION['poker']['record']} </p>";
+            }
+            ?>
+
+
+
+
+
+
+
+
+          
+ 
 
 </body>
 
