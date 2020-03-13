@@ -140,15 +140,15 @@ form#play-game {
     float: right;
 }
 .player-amount{
-    width: 5%;
-    height: 5%;
+    width: 15%;
+    height: 7%;
     font-size: 3rem;
     position: fixed;
-    top: 5%;
-    left: 45%;
+    top: 1%;
+    left: 50%;
     color: blanchedalmond;
-    transform: translate(-40%,0);
-        
+    transform: translate(-60%,0);
+        border: 1px solid aliceblue;
 }
 
 .fast-cash,
@@ -191,4 +191,19 @@ form#play-game {
     display: flex;   
     justify-content: space-around;  
     transform: translate(-50%, -30%);
+}
+.history{
+    width: 28%;
+    height: 22%;
+    position: absolute;
+    bottom: 0%;
+    right: 0;
+    background-color: rgb(200, 98, 50);
+    overflow: hidden;
+}
+.history>h3{
+    background-color: seagreen;
+    text-align: center;
+
+
 }

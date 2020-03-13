@@ -15,7 +15,6 @@
         <!-- //information button on the top right -->
         <div class="info">
             <a href="#"><i class="fa fa-info-circle" style="color: blue; font-size: 4rem "></i></a>
-
         </div>
         <!-- on click add 100 chip on total amount of player chip -->
         <form action="display_game.php" method="GET" id="frm-fast-cash">
@@ -24,7 +23,7 @@
             </div>
         </form>
         <!-- display the amount of the player -->
-        <span class="player-amount"><i class="fa fa-usd" aria-hidden="true"></i><?php echo $amount ?></span>
+        <p class="player-amount"><i class="fa fa-usd" aria-hidden="true"></i><?php echo $amount ?></p>
         <!-- close the game and print the result on a record on homepage -->
         <form action="index.php" method="GET" id="frm-cash-out">
             <div class="submit">
@@ -38,7 +37,7 @@
             <!-- here is all ccasino chips from 5 to 100 in SVG formating -->
             <div class="poker-chips-box">
                 <!-- casino chip rate of 100$ -->
-                <svg class="chip" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="80" height="80" viewBox="0 0 172 172" style=" fill:#000000;">
+                <svg class="chip" id="100-chip" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="80" height="80" viewBox="0 0 172 172" style=" fill:#000000;">
                     <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="none" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                         <path d="M0,172v-172h172v172z" fill="none" stroke="none" stroke-width="1"></path>
                         <g stroke="none" stroke-width="1">
@@ -58,7 +57,7 @@
                     </g>
                 </svg>
                 <!-- casino chip rate of 50$ -->
-                <svg class="chip" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="80" height="80" viewBox="0 0 172 172" style=" fill:#000000;">
+                <svg class="chip" id="50-chip" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="80" height="80" viewBox="0 0 172 172" style=" fill:#000000;">
                     <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                         <path d="M0,172v-172h172v172z" fill="none"></path>
                         <g>
@@ -77,7 +76,7 @@
                     </g>
                 </svg>
                 <!-- casino chip rate of 20$ -->
-                <svg class="chip" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="80" height="80" viewBox="0 0 172 172" style=" fill:#000000;">
+                <svg class="chip" id="20-chip" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="80" height="80" viewBox="0 0 172 172" style=" fill:#000000;">
                     <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                         <path d="M0,172v-172h172v172z" fill="none"></path>
                         <g>
@@ -96,7 +95,7 @@
                     </g>
                 </svg>
                 <!-- casino chip rate of 10$ -->
-                <svg class="chip" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="80" height="80" viewBox="0 0 172 172" style=" fill:#000000;">
+                <svg class="chip" id="10-chip" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="80" height="80" viewBox="0 0 172 172" style=" fill:#000000;">
                     <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="1" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                         <path d="M0,172v-172h172v172z" fill="none"></path>
                         <g>
@@ -115,7 +114,7 @@
                     </g>
                 </svg>
                 <!-- casino chip rate of 5$ -->
-                <svg class="chip" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="80" height="80" viewBox="0 0 172 172" style=" fill:#000000;">
+                <svg class="chip" id="5-chip" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" width="80" height="80" viewBox="0 0 172 172" style=" fill:#000000;">
                     <g fill="none" fill-rule="nonzero" stroke="none" stroke-width="none" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10" stroke-dasharray="" stroke-dashoffset="0" font-family="none" font-weight="none" font-size="none" text-anchor="none" style="mix-blend-mode: normal">
                         <path d="M0,172v-172h172v172z" fill="none" stroke="none" stroke-width="1"></path>
                         <g stroke="none" stroke-width="1">
@@ -137,7 +136,7 @@
             </div>
 
             <!-- button of deal and showdown -->
-            <form action="display.php" method="GET" class="frm-deal">
+            <form action="display_game.php" method="GET" class="frm-deal">
                 <div class="form-cotainer-submit">
                     <div class="submit">
                         <input type="submit" value="Showdown" name="showdown" class="btn-game showdown">
@@ -147,9 +146,17 @@
                     </div>
                 </div>
             </form>
-        </div>
 
         </div>
+        <div class="history">
+            <h3>Game history</h3>
+            <p class="game-hand">
+                <?php echo $hand_history;?>
+            </p>
+        </div>
+
+
+
     </section>
 </body>
 
