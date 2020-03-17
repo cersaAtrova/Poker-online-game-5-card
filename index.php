@@ -24,22 +24,20 @@ if (empty($_SESSION)) {
 </head>
 
 <body>
-   
-        <!-- Create the home page -->
-        <div class="home-body-cover">
 
-            <img class="logo" src="images/logo.png" alt="dice logo">
-            <form action="display_game.php" method="GET" id="play-game">
-                <div class="submit">
-                    <input type="submit" value="Play Now" name="submit" class="play btn-game">
+    <!-- Create the home page -->
+    <div class="home-body-cover">
 
-                </div>
-            </form>
-            <!-- Shows the best records of the player -->
-            <?php if (!empty($_SESSION['poker']['record'])) {
-                echo  "<p class='record'>Your Best Record is: {$_SESSION['poker']['record']} </p>";
-            }
-            ?>
+        <img class="logo" src="images/logo.png" alt="dice logo">
+        <div class="submit play-game">
+            <a class="play btn-game" href="display_game.php">Play Now</a>
+        </div>
+
+        <!-- Shows the best records of the player -->
+        <?php if (!empty($_SESSION['poker']['record'])) {
+            echo  "<p class='record'>Your Best Record is: {$_SESSION['poker']['record']} </p>";
+        }
+        ?>
 
 
 
@@ -48,8 +46,8 @@ if (empty($_SESSION)) {
 
 
 
-          
- 
+
+
 
 </body>
 

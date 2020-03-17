@@ -36,36 +36,36 @@ body {
 }
 
 /* button submit style */
-.btn-game {
-    color: white;
-    border-radius: 150px;
-    background-color: rgb(185, 16, 16);
-
-}
 
 .submit {
-    width: fit-content;
+    border-radius: 150px;
+    background-color: rgb(185, 16, 16);
     border-radius: 50px;
     border: 4px solid goldenrod;
+    color: white;
+
+
 }
 
 /* first form submit button */
 .play {
-
+    border-radius: 150px;
+    display: block;
+    color: white;
     padding: 1.5rem 7rem;
     font-size: 2rem;
 
 }
 
 .play:hover,
-form#play-game:hover {
+.play-game:hover {
     cursor: pointer;
     background-color: rgba(22, 20, 20, 0.918);
     color: rgba(255, 255, 255, 0.472);
 
 }
 
-form#play-game {
+.play-game {
     border-radius: 150px;
     width: max-content;
     position: absolute;
@@ -87,22 +87,7 @@ form#play-game {
 
 /* display game page */
 /* print the cover page */
-.game-body-cover {
-    position: relative;
-    width: 100%;
-    height: 100vh;
-    background-image: url('images/game-bg.png');
-    background-repeat: repeat;
-    z-index: -999;
-}
 
-.game-inner {
-    position: relative;
-    width: 80%;
-    height: 80%;
-    padding-top: 5rem;
-    margin: auto;
-}
 
 /* draw the poker-table */
 .poker-table {
@@ -118,10 +103,29 @@ form#play-game {
     left: 50%;
     top: 30%;
     transform: translate(-50%, -70%);
-    z-index: -90;
+    z-index: -990;
 }
 
 /* add the poker-chips under the poker-table in the center   */
+
+
+
+.game-body-cover {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-image: url('images/game-bg.png');
+    background-repeat: repeat;
+    z-index: 0;
+}
+
+.game-inner {
+    position: relative;
+    width: 80%;
+    height: 80%;
+    padding-top: 5rem;
+    margin: auto;
+}
 .poker-chips-box {
     width: max-content;
     position: absolute;
@@ -133,13 +137,14 @@ form#play-game {
 
 .chip:hover {
     transform: scale(1.05) !important;
+    cursor: pointer;
 }
 
 .info {
     width: max-content;
     float: right;
 }
-.player-amount{
+.player-amount {
     width: 15%;
     height: 7%;
     font-size: 3rem;
@@ -147,8 +152,8 @@ form#play-game {
     top: 1%;
     left: 50%;
     color: blanchedalmond;
-    transform: translate(-60%,0);
-        border: 1px solid aliceblue;
+    transform: translate(-60%, 0);
+    border: 1px solid aliceblue;
 }
 
 .fast-cash,
@@ -173,26 +178,42 @@ form#play-game {
 
 .frm-deal {
     width: 40%;
-    position: relative;;
+    position: relative;
     top: 70%;
     left: 50%;
-    
+
     display: flex;
     flex-direction: column;
 }
+
+input[type=submit]{
+    border-radius: 150px;
+    background-color: rgb(185, 16, 16);
+    border-radius: 50px;
+    /* border: 4px solid goldenrod; */
+    color: white;
+}
+input[type=submit]:hover{
+    cursor: pointer;
+    background-color: rgba(22, 20, 20, 0.918);
+    color: rgba(255, 255, 255, 0.472);
+}
+
 .deal,
 .showdown {
     width: 15rem;
     font-size: 2em;
     padding: 0.5em 1em;
 }
-.form-cotainer-submit{
 
-    display: flex;   
-    justify-content: space-around;  
+.form-cotainer-submit {
+
+    display: flex;
+    justify-content: space-around;
     transform: translate(-50%, -30%);
 }
-.history{
+
+.history {
     width: 28%;
     height: 22%;
     position: absolute;
@@ -201,7 +222,8 @@ form#play-game {
     background-color: rgb(200, 98, 50);
     overflow: hidden;
 }
-.history>h3{
+
+.history>h3 {
     background-color: seagreen;
     text-align: center;
 
