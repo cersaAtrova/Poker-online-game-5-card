@@ -1,11 +1,8 @@
 <?php
 session_start();
-if (empty($_SESSION)) {
-    $_SESSION['poker'] = array();
-} else {
-    //get the maximum winning record that player Cashout 
-    //$_SESSION['poker']['record'] = max($_SESSION['poker']['record']);
-}
+
+    $_SESSION = array();
+
 
 ?>
 

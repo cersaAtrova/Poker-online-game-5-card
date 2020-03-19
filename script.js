@@ -1,0 +1,63 @@
+$(document).ready(function() {
+
+    //on every click Add 100 chips to amount
+    $("#frm-fast-cash").click(function() {
+        var amount = 100 + parseInt($("#amount").text());
+        $({
+            countNum: $('#amount').html() //starting point of existing cache
+        }).animate({
+            countNum: amount //ending
+        }, {
+            duration: 400,
+            easing: 'swing',
+            step: function() {
+                $('#amount').html(Math.ceil(this.countNum));
+            },
+            complete: function() {
+                $('#amount').html(amount);
+                //alert('finished');
+            }
+        });
+        //saveAsNewName(amount)
+    });
+    //remove the chip amount from the total amount
+    $(".select-chip").click(function() {
+        var value = $(this).attr("data-value")
+        var amount = parseInt($("#amount").text()) - value;
+
+
+        if (amount < 0) {
+            alert('Not enough Chips! Please Buy more chip for this Bet!!')
+        } else {
+
+            $({
+                countNum: $('#amount').html() //starting point of existing cache
+            }).animate({
+                countNum: amount //ending
+            }, {
+                duration: 400,
+                easing: 'swing',
+                step: function() {
+                    $('#amount').html(Math.floor(this.countNum));
+                },
+                complete: function() {
+                    $('#amount').html(amount);
+                    var hrefAttr = "display_game.php?chip=" + value + "&bool=false" + "&amount=" + $('#amount').text();
+                    window.location = hrefAttr;
+                    //alert('finished');
+                }
+            });
+        }
+    });
+$('.showdown').click(function(){
+    
+    if($('.showdown').text() =="Show down"){
+        var hrefAttr = "display_game.php?&bool=true" + "&amount=" + $('#amount').text();
+        $(".showdown").text('Deal');
+        window.location = hrefAttr;
+   
+    
+    }
+});
+
+});

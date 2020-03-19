@@ -202,20 +202,25 @@ input[type=submit]{
     /* border: 4px solid goldenrod; */
     color: white;
 }
-input[type=submit]:hover,.fast-cash:hover{
-    cursor: pointer;
-    background-color: rgba(22, 20, 20, 0.918);
-    color: rgba(255, 255, 255, 0.472);
-}
+
 
 .deal,
 .showdown {
-    width: 15rem;
+    width: 8em;
+    display: inline-block;
     font-size: 2em;
     padding: 0.5em 1em;
+    text-align: center;
 }
-
+.deal:hover,
+.showdown:hover,.fast-cash:hover,input[type=submit]:hover {
+    cursor: pointer;
+    border-radius: 50px;
+    background-color: rgba(22, 20, 20, 0.918);
+    color: rgba(255, 255, 255, 0.472);
+}
 .form-cotainer-submit {
+    width: 100%;
     display: flex;
     justify-content: space-around;
  
