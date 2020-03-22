@@ -17,6 +17,7 @@ if (!isset($_SESSION['poker'])) {
 
 ?>
 <!DOCTYPE html>
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -27,7 +28,10 @@ if (!isset($_SESSION['poker'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->
     <link rel="stylesheet" href="style.css">
     <!-- font awesome library -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <script src="https://kit.fontawesome.com/yourcode.js"></script>
+
     <script src="script.js"></script>
 </head>
 
@@ -35,16 +39,23 @@ if (!isset($_SESSION['poker'])) {
     <section class="game-body-cover">
         <!-- //information button on the top right -->
         <div class="info">
-            <a href="#"><i class="fa fa-info-circle" style="color: blue; font-size: 4rem "></i></a>
+            <a href="#" id="myBtn"><i class="fas fa-info-circle" style="color: blue; font-size: 4rem "></i></a>
         </div>
+        <!-- deck of card on table -->
+        <div class="deck_of_card">
+            <img src="images/deck_of_card.png" alt="deck_of_card">
+        </div>
+
+        <!-- 5 card on table -->
+
         <!-- Button Fast Cash . on click add 100 chip on total amount of player chip -->
         <div id="frm-fast-cash">
             <div class="submit">
                 <a class="fast-cash">Fast Cash</a>
             </div>
-        </div>  
+        </div>
         <!-- display the amount of the player -->
-        <p class="player-amount"><i class="fa fa-usd"></i><span id="amount"><?php echo $amount; ?></span></p>
+        <p class="player-amount"><i class="fas fa-euro-sign"></i><span id="amount"><?php echo $amount; ?></span></p>
 
         <!-- close the game and print the result on a record on homepage -->
         <form action="index.php" method="GET" id="frm-cash-out">
@@ -58,7 +69,7 @@ if (!isset($_SESSION['poker'])) {
             <!-- here is draw casino table -->
             <div class="poker-table"></div>
             <!-- here is all casino chips from 5 to 100  -->
-            <div class="poker-chips-box" data-chip-accept="<?php echo $_SESSION['accept-chip']; ?>">
+            <div class="poker-chips-box">
                 <!-- casino chip rate of 100$ -->
                 <a class="select-chip" data-value="100"> <img class="chip" src="images/100.png" alt="chip 100"></a>
                 <!-- casino chip rate of 50$ -->
@@ -74,12 +85,12 @@ if (!isset($_SESSION['poker'])) {
             <!-- button of deal and showdown -->
             <form action="display_game.php" method="GET" class="frm-deal">
                 <div class="form-cotainer-submit">
-                        <div class="submit">
-                            <a class="showdown">Show down</a>
-                        </div>
-                        <div class="submit">
-                            <a class="deal">Draw</a>
-                        
+                    <div class="submit">
+                        <a class="showdown"><?php echo $_GET['click_button']; ?></a>
+                    </div>
+                    <div class="submit">
+                        <a class="deal">Draw</a>
+
                     </div>
                 </div>
             </form>
@@ -92,6 +103,207 @@ if (!isset($_SESSION['poker'])) {
         </div>
 
 
+
+        <!-- The Modal -->
+        <div id="myModal" class="modal">
+
+            <!-- Modal content -->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <h2>HAND RANKINGS</h2>
+                </div>
+                <div class="modal-body">
+                    <p>
+                        <table style="font-size: 2rem">
+                            <tr>
+                                <td>Royal Flush</td>
+                                <td><span>10 <i class='fa fa-heart color red'></i></span>
+                                    <span>J <i class='fa fa-heart color red'></i></span>
+                                    <span>Q <i class='fa fa-heart color red'></i></span>
+                                    <span>K <i class='fa fa-heart color red'></i></span>
+                                    <span>A <i class='fa fa-heart color red'></i></span>
+                                </td>
+                                <td><span class="red-dark">250/1</span></td>
+                            </tr>
+                            <tr>
+                                <td>Straight Flush</td>
+                                <td><span>A <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
+                                    <span>2 <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
+                                    <span>3 <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
+                                    <span>4 <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
+                                    <span>5 <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
+                                </td>
+                                <td><span class="red-dark">50/1</span></td>
+                            </tr>
+                            <tr>
+                                <td>Four of a King</td>
+                                <td><span>K <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
+                                    <span>K <i class='fa fa-heart color red'></i></span>
+                                    <span>K <img src="https://img.icons8.com/metro/32/000000/spades.png" /></span>
+                                    <span>K <img src="https://img.icons8.com/color/32/000000/kite-shape.png" /></span>
+
+                                </td>
+                                <td><span class="red-dark">25/1</span></td>
+                            </tr>
+                            <tr style="width: 100%">
+                                <td>Full House</td>
+
+                                <td><span>A <i class='fa fa-heart color red'></i></span>
+                                    <span>A <i class='fa fa-heart color red'></i></span>
+                                    <span>K <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
+                                    <span>K <i class='fa fa-heart color red'></i></span>
+                                    <span>K <img src="https://img.icons8.com/metro/32/000000/spades.png" /></span>
+
+
+                                </td>
+                                <td><span class="red-dark">25/1</span></td>
+                            </tr>
+                            <tr>
+                                <td>Flush</td>
+                                <td><span>A <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
+                                    <span>K <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
+                                    <span>10 <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
+                                    <span>9 <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
+                                    <span>7 <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
+                                </td>
+                                <td><span class="red-dark">15/1</span></td>
+                            </tr>
+                            <tr style="width: 100%">
+                                <td>Straight</td>
+                                <td><span>7 <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
+                                    <span>8 <img src="https://img.icons8.com/ios-filled/32/000000/spades.png" /></span>
+                                    <span>9 <img src="https://img.icons8.com/ios-filled/32/000000/spades.png" /></span>
+                                    <span>10 <i class='fa fa-heart color red'></i></span>
+                                    <span>J <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
+                                </td>
+                                <td><span class="red-dark">9/1</span></td>
+                            </tr>
+                            <tr>
+                                <td>Three of a King</td>
+                                <td><span>K <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
+                                    <span>K <i class='fa fa-heart color red'></i></span>
+                                    <span>K <img src="https://img.icons8.com/metro/32/000000/spades.png" /></span>
+                                </td>
+                                <td><span class="red-dark">6/1</span></td>
+                            </tr>
+                            <tr>
+                                <td>Two pairs</td>
+                                <td><span>K <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
+                                    <span>K <img src="https://img.icons8.com/metro/32/000000/spades.png" /></span>
+                                    <span>Q <i class='fa fa-heart color red'></i></span>
+                                    <span>Q <img src="https://img.icons8.com/metro/32/000000/spades.png" /></span>
+                                </td>
+                                <td><span class="red-dark">3/1</span></td>
+                            </tr>
+                            <tr>
+                                <td>One pair</td>
+                                <td><span>K <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
+                                    <span>K <img src="https://img.icons8.com/metro/32/000000/spades.png" /></span>
+                                </td>
+                                <td><span class="red-dark">2/1</span></td>
+                            </tr>
+                        </table>
+
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <h3>Asso Trantana Casino</h3>
+                </div>
+            </div>
+            <script>
+                // Get the modal
+                var modal = document.getElementById("myModal");
+
+                // Get the button that opens the modal
+                var btn = document.getElementById("myBtn");
+
+                // Get the <span> element that closes the modal
+                var span = document.getElementsByClassName("close")[0];
+
+                // When the user clicks the button, open the modal 
+                btn.onclick = function() {
+                    modal.style.display = "block";
+                }
+                // When the user clicks on <span> (x), close the modal
+                span.onclick = function() {
+                    modal.style.display = "none";
+                }
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            </script>
+        </div>
+
+        <div class="game-start-shown-card">
+            <div class="hover panel">
+                <div class="front">
+                    <div class="pad">
+                        <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="pad">
+                        <img src="images/<?php echo $first_card ?>.png" alt="logo back" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="hover panel">
+                <div class="front">
+                    <div class="pad">
+                        <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="pad">
+                        <img src="images/<?php echo $second_card ?>.png" width="93px" height="155px" alt="logo front" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="hover panel">
+                <div class="front">
+                    <div class="pad">
+                        <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="pad">
+                        <img src="images/<?php echo $third_card ?>.png" width="93px" height="155px" alt="logo front" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="hover panel">
+                <div class="front">
+                    <div class="pad">
+                        <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="pad">
+                        <img src="images/<?php echo $fourth_card ?>.png" width="93px" height="155px" alt="logo front" />
+                    </div>
+                </div>
+            </div>
+
+            <div class="hover panel">
+                <div class="front">
+                    <div class="pad">
+                        <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
+                    </div>
+                </div>
+                <div class="back">
+                    <div class="pad">
+                        <img src="images/<?php echo $fifth_card ?>.png" width="93px" height="155px" alt="logo front" />
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </section>
 </body>

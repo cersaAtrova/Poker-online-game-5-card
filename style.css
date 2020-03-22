@@ -81,6 +81,32 @@ body {
     transform: translate(-50%, 10%)
 }
 
+/* deck */
+.deck_of_card {
+    position: fixed;
+    top: 10%;
+    left: 55%;
+}
+
+.back-card {
+    background-image: url('images/back-card.jpg');
+    width: 93px;
+    height: 155px;
+
+    border: 2px solid white;
+}
+
+.game-start-shown-card {
+    position: absolute;
+    top: 25%;
+    left: 35%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 30%;
+    margin: auto;
+    justify-content: space-between;
+}
 
 
 /* display game page */
@@ -132,7 +158,8 @@ body {
     transform: translateX(-50%);
     z-index: 1;
 }
-.chip{
+
+.chip {
     width: 75px;
 }
 
@@ -147,6 +174,7 @@ body {
     bottom: 5px;
     left: 5px;
 }
+
 .player-amount {
     width: 15%;
     height: 7%;
@@ -165,15 +193,17 @@ body {
     font-size: 2em;
     padding: 0.5em 1em;
 }
-.fast-cash{
+
+.fast-cash {
     border-radius: 150px;
     display: block;
     color: white;
     text-align: center;
     font-size: 2rem;
 }
-#frm-fast-cash{
-        float: left;    
+
+#frm-fast-cash {
+    float: left;
 }
 
 #frm-fast-cash,
@@ -184,8 +214,9 @@ body {
 }
 
 #frm-cash-out {
-    float: right;   
+    float: right;
 }
+
 .frm-deal {
     width: 40%;
     position: absolute;
@@ -195,7 +226,8 @@ body {
     flex-direction: column;
     transform: translateX(-50%);
 }
-input[type=submit]{
+
+input[type=submit] {
     border-radius: 150px;
     background-color: rgb(185, 16, 16);
     border-radius: 50px;
@@ -212,18 +244,22 @@ input[type=submit]{
     padding: 0.5em 1em;
     text-align: center;
 }
+
 .deal:hover,
-.showdown:hover,.fast-cash:hover,input[type=submit]:hover {
+.showdown:hover,
+.fast-cash:hover,
+input[type=submit]:hover {
     cursor: pointer;
     border-radius: 50px;
     background-color: rgba(22, 20, 20, 0.918);
     color: rgba(255, 255, 255, 0.472);
 }
+
 .form-cotainer-submit {
     width: 100%;
     display: flex;
     justify-content: space-around;
- 
+
 }
 
 .history {
@@ -235,9 +271,242 @@ input[type=submit]{
     background-color: rgb(200, 98, 50);
     overflow: hidden;
 }
+
 .history>h3 {
     background-color: seagreen;
     text-align: center;
 
 
+}
+
+.modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 100px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #b91010;
+    color: white;
+}
+
+.modal-body {
+    padding: 2px 16px;
+}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #b91010;
+    color: white;
+}
+
+.red {
+    font-size: 2rem !important;
+    color: red;
+    /* margin-left: -5px !important;
+    padding-left:-5px  !important; */
+
+}
+
+.red-dark {
+    color: rgb(139, 20, 20);
+
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td {
+    border: 1px solid #dddddd;
+    font-size: 32px;
+    text-align: center;
+    padding: 8px;
+}
+
+td span {
+    padding: 5px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+
+
+
+.panel {
+    margin: 0 auto;
+    width: 130px;
+    height: 130px;  
+    position: relative;
+    font-size: .8em;
+    perspective: 600px;
+    -webkit-perspective: 600px;
+    -moz-perspective: 600px;
+}
+.panel .front {
+    position: absolute;
+    top: 0;
+    z-index: 900;
+    width: inherit;
+    height: inherit;
+    text-align: center;
+   
+}
+.panel .back {
+    position: absolute;
+    top: 0;
+    z-index: 800;
+    width: inherit;
+    height: inherit;
+}
+.panel {
+    margin: 0 auto;
+    width: 130px;
+    height: 130px;  
+    position: relative;
+    font-size: .8em;
+    perspective: 600px;
+    -webkit-perspective: 600px;
+    -moz-perspective: 600px;
+}
+.panel .front img{
+    border: 4px solid rgb(200, 200, 200);
+}
+/* -- make sure to declare a default for every property that you want animated -- */
+/* -- general styles, including Y axis rotation -- */
+.panel .front {
+    position: absolute;
+    top: 0;
+    z-index: 900;
+    
+    width: inherit;
+    height: inherit;
+    text-align: center;
+    transform: rotatex(0deg) rotateY(0deg);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    -webkit-transform: rotateX(0deg) rotateY(0deg);
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    -moz-transform: rotateX(0deg) rotateY(0deg);
+    -moz-transform-style: preserve-3d;
+    -moz-backface-visibility: hidden;
+    /* -- transition is the magic sauce for animation -- */
+    transition: all .4s ease-in-out;
+    -o-transition: all .4s ease-in-out;
+    -ms-transition: all .4s ease-in-out;
+    -moz-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+}
+.panel.flip .front {
+    z-index: 900;
+    transform: rotateY(180deg);
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+}
+.panel .back {
+    position: absolute;
+    top: 0;
+    z-index: 800;
+    width: inherit;
+    height: inherit;
+    transform: rotateY(-180deg);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+    -webkit-transform: rotateY(-180deg);
+    -webkit-transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+ 
+    -moz-transform: rotateY(-180deg);
+    -moz-transform-style: preserve-3d;
+    -moz-backface-visibility: hidden;
+    /* -- transition is the magic sauce for animation -- */
+    -o-transition: all .4s ease-in-out;
+    -ms-transition: all .4s ease-in-out;
+    -moz-transition: all .4s ease-in-out;
+    -webkit-transition: all .4s ease-in-out;
+    transition: all .4s ease-in-out;
+}
+.panel.flip .back {
+    z-index: 1000;
+    transform: rotate(0deg) rotateX(0deg);
+    -webkit-transform: rotateX(0deg) rotateY(0deg);
+    -moz-transform: rotateX(0deg) rotateY(0deg);
 }

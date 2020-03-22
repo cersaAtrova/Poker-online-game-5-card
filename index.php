@@ -1,9 +1,6 @@
 <?php
 session_start();
-
     $_SESSION = array();
-
-
 ?>
 
 <!DOCTYPE html>
@@ -27,7 +24,7 @@ session_start();
 
         <img class="logo" src="images/logo.png" alt="dice logo">
         <div class="submit play-game">
-            <a class="play btn-game" href="display_game.php">Play Now</a>
+            <a class="play btn-game" href="display_game.php?&click_button=Show down&amount=0&bool=true">Play Now</a>
         </div>
 
         <!-- Shows the best records of the player -->
