@@ -12,6 +12,13 @@ if (!isset($_SESSION['poker'])) {
         $amount = $_SESSION['poker']['amount'];
     }
 }
+if($_GET['bool']=='false'){
+    $display_chips_on_screen='none';
+}else{
+    $display_chips_on_screen='block';
+}
+
+
 
 
 
@@ -69,9 +76,9 @@ if (!isset($_SESSION['poker'])) {
             <!-- here is draw casino table -->
             <div class="poker-table"></div>
             <!-- here is all casino chips from 5 to 100  -->
-            <div class="poker-chips-box">
+            <div class="poker-chips-box" style="display: <?php echo $display_chips_on_screen;?>">
                 <!-- casino chip rate of 100$ -->
-                <a class="select-chip" data-value="100"> <img class="chip" src="images/100.png" alt="chip 100"></a>
+                <a class="select-chip"  data-value="100"> <img class="chip" src="images/100.png" alt="chip 100"></a>
                 <!-- casino chip rate of 50$ -->
                 <a class="select-chip" data-value="50"><img class="chip" src="images/50.png" alt="chips 50"></a>
                 <!-- casino chip rate of 20$ -->
@@ -99,6 +106,13 @@ if (!isset($_SESSION['poker'])) {
             <h3>Game history</h3>
             <p class="game-hand">
                 <?php echo $hand_history; ?>
+                <?php 
+                var_dump($_GET['bool']===false);
+                var_dump($display_chips_on_screen);
+                
+                
+                ?>
+                
             </p>
         </div>
 
@@ -237,74 +251,75 @@ if (!isset($_SESSION['poker'])) {
                 }
             </script>
         </div>
-
-        <div class="game-start-shown-card">
-            <div class="hover panel">
-                <div class="front">
-                    <div class="pad">
-                        <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
+        <!-- show the table card only the guest atart thr game -->
+        <?php if ($_GET['bool'] == "false") : ?> 
+            <div class="game-start-shown-card">
+                <div class="hover panel">
+                    <div class="front">
+                        <div class="pad">
+                            <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="pad">
+                            <img src="images/<?php echo $first_card ?>.png" alt="logo back" />
+                        </div>
                     </div>
                 </div>
-                <div class="back">
-                    <div class="pad">
-                        <img src="images/<?php echo $first_card ?>.png" alt="logo back" />
+
+                <div class="hover panel">
+                    <div class="front">
+                        <div class="pad">
+                            <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="pad">
+                            <img src="images/<?php echo $second_card ?>.png" width="93px" height="155px" alt="logo front" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hover panel">
+                    <div class="front">
+                        <div class="pad">
+                            <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="pad">
+                            <img src="images/<?php echo $third_card ?>.png" width="93px" height="155px" alt="logo front" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hover panel">
+                    <div class="front">
+                        <div class="pad">
+                            <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="pad">
+                            <img src="images/<?php echo $fourth_card ?>.png" width="93px" height="155px" alt="logo front" />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hover panel">
+                    <div class="front">
+                        <div class="pad">
+                            <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
+                        </div>
+                    </div>
+                    <div class="back">
+                        <div class="pad">
+                            <img src="images/<?php echo $fifth_card ?>.png" width="93px" height="155px" alt="logo front" />
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="hover panel">
-                <div class="front">
-                    <div class="pad">
-                        <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="pad">
-                        <img src="images/<?php echo $second_card ?>.png" width="93px" height="155px" alt="logo front" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="hover panel">
-                <div class="front">
-                    <div class="pad">
-                        <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="pad">
-                        <img src="images/<?php echo $third_card ?>.png" width="93px" height="155px" alt="logo front" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="hover panel">
-                <div class="front">
-                    <div class="pad">
-                        <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="pad">
-                        <img src="images/<?php echo $fourth_card ?>.png" width="93px" height="155px" alt="logo front" />
-                    </div>
-                </div>
-            </div>
-
-            <div class="hover panel">
-                <div class="front">
-                    <div class="pad">
-                        <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
-                    </div>
-                </div>
-                <div class="back">
-                    <div class="pad">
-                        <img src="images/<?php echo $fifth_card ?>.png" width="93px" height="155px" alt="logo front" />
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        <!-- <?php endif; ?> -->
     </section>
 </body>
 
