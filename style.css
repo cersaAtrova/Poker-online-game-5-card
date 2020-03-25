@@ -263,18 +263,21 @@ input[type=submit]:hover {
 }
 
 .history {
+    position: relative;
     width: 28%;
     height: 22%;
     position: absolute;
     bottom: 0%;
     right: 0;
     background-color: rgb(200, 98, 50);
-    overflow: hidden;
+    overflow: scroll;
 }
 
 .history>h3 {
+    width: 100%;
     background-color: seagreen;
-    text-align: center;
+    text-align: left;
+    position: fixed;
 
 
 }
@@ -448,6 +451,14 @@ tr:nth-child(even) {
 }
 .panel .front img{
     border: 4px solid rgb(200, 200, 200);
+    
+}
+.panel .back img{
+    background-color: wheat;
+}
+.panel .pad img{
+    width: 60%;
+    height: 80%;
 }
 /* -- make sure to declare a default for every property that you want animated -- */
 /* -- general styles, including Y axis rotation -- */
@@ -493,7 +504,6 @@ tr:nth-child(even) {
     -webkit-transform: rotateY(-180deg);
     -webkit-transform-style: preserve-3d;
     -webkit-backface-visibility: hidden;
- 
     -moz-transform: rotateY(-180deg);
     -moz-transform-style: preserve-3d;
     -moz-backface-visibility: hidden;

@@ -1,4 +1,5 @@
 <?php
+require 'method.php';
 session_start();
 
 if (!isset($_SESSION['poker'])) {
@@ -12,10 +13,10 @@ if (!isset($_SESSION['poker'])) {
         $amount = $_SESSION['poker']['amount'];
     }
 }
-if($_GET['bool']=='false'){
-    $display_chips_on_screen='none';
-}else{
-    $display_chips_on_screen='block';
+if ($_GET['bool'] == 'false') {
+    $display_chips_on_screen = 'none';
+} else {
+    $display_chips_on_screen = 'block';
 }
 
 
@@ -76,9 +77,9 @@ if($_GET['bool']=='false'){
             <!-- here is draw casino table -->
             <div class="poker-table"></div>
             <!-- here is all casino chips from 5 to 100  -->
-            <div class="poker-chips-box" style="display: <?php echo $display_chips_on_screen;?>">
+            <div class="poker-chips-box" style="display: <?php echo $display_chips_on_screen; ?>">
                 <!-- casino chip rate of 100$ -->
-                <a class="select-chip"  data-value="100"> <img class="chip" src="images/100.png" alt="chip 100"></a>
+                <a class="select-chip" data-value="100"> <img class="chip" src="images/100.png" alt="chip 100"></a>
                 <!-- casino chip rate of 50$ -->
                 <a class="select-chip" data-value="50"><img class="chip" src="images/50.png" alt="chips 50"></a>
                 <!-- casino chip rate of 20$ -->
@@ -105,14 +106,18 @@ if($_GET['bool']=='false'){
         <div class="history">
             <h3>Game history</h3>
             <p class="game-hand">
-                <?php echo $hand_history; ?>
-                <?php 
-                var_dump($_GET['bool']===false);
-                var_dump($display_chips_on_screen);
-                
-                
+                <?php echo $hand_history;
+                $e=new Card_deck();
+                $e->start_the_game();
+                echo'faces/'.$e->deck[6]->getSuit().'_'. $e->deck[6]->getFace();
+             
+                  ?>
+                <?php
+              
+
+
                 ?>
-                
+
             </p>
         </div>
 
@@ -252,17 +257,21 @@ if($_GET['bool']=='false'){
             </script>
         </div>
         <!-- show the table card only the guest atart thr game -->
-        <?php if ($_GET['bool'] == "false") : ?> 
+        <?php if ($_GET['bool'] == "false") : ?>
+            <?php 
+                 $e->new_game($first_card,$second_card,$third_card,$fourth_card,$fifth_card);
+                 var_dump($fourth_card); ?>
+               
             <div class="game-start-shown-card">
                 <div class="hover panel">
                     <div class="front">
                         <div class="pad">
-                            <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
+                            <img src="images/faces/back.png" alt="logo back" />
                         </div>
                     </div>
                     <div class="back">
                         <div class="pad">
-                            <img src="images/<?php echo $first_card ?>.png" alt="logo back" />
+                            <img src="images/<?php echo $first_card ?>.png"  alt="logo front" />
                         </div>
                     </div>
                 </div>
@@ -270,12 +279,13 @@ if($_GET['bool']=='false'){
                 <div class="hover panel">
                     <div class="front">
                         <div class="pad">
-                            <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
+                            <img src="images/faces/back.png" alt="logo back" />
                         </div>
                     </div>
                     <div class="back">
                         <div class="pad">
-                            <img src="images/<?php echo $second_card ?>.png" width="93px" height="155px" alt="logo front" />
+
+                            <img src="images/<?php echo $second_card ?>.png"  alt="logo front" />
                         </div>
                     </div>
                 </div>
@@ -283,12 +293,12 @@ if($_GET['bool']=='false'){
                 <div class="hover panel">
                     <div class="front">
                         <div class="pad">
-                            <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
+                            <img src="images/faces/back.png" alt="logo back" />
                         </div>
                     </div>
                     <div class="back">
                         <div class="pad">
-                            <img src="images/<?php echo $third_card ?>.png" width="93px" height="155px" alt="logo front" />
+                            <img src="images/<?php echo $third_card ?>.png"  alt="logo front" />
                         </div>
                     </div>
                 </div>
@@ -296,12 +306,12 @@ if($_GET['bool']=='false'){
                 <div class="hover panel">
                     <div class="front">
                         <div class="pad">
-                            <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
+                            <img src="images/faces/back.png" alt="logo back" />
                         </div>
                     </div>
                     <div class="back">
                         <div class="pad">
-                            <img src="images/<?php echo $fourth_card ?>.png" width="93px" height="155px" alt="logo front" />
+                            <img src="images/<?php echo $fourth_card ?>.png"  alt="logo front" />
                         </div>
                     </div>
                 </div>
@@ -309,17 +319,18 @@ if($_GET['bool']=='false'){
                 <div class="hover panel">
                     <div class="front">
                         <div class="pad">
-                            <img src="images/back-card.jpg" width="93px" height="155px" alt="logo front" />
+                            <img src="images/faces/back.png" alt="logo back" />
                         </div>
                     </div>
                     <div class="back">
                         <div class="pad">
-                            <img src="images/<?php echo $fifth_card ?>.png" width="93px" height="155px" alt="logo front" />
+
+                            <img src="images/<?php echo $fifth_card ?>.png" alt="logo front" />
                         </div>
                     </div>
                 </div>
             </div>
-        <!-- <?php endif; ?> -->
+            <!-- <?php endif; ?> -->
     </section>
 </body>
 
