@@ -526,3 +526,6 @@ tr:nth-child(even) {
     -webkit-transform: rotateX(0deg) rotateY(0deg);
     -moz-transform: rotateX(0deg) rotateY(0deg);
 }
+.selected_card{
+    transform: scale(1.2);
+}

@@ -1,6 +1,7 @@
 <?php
-require 'method.php';
+
 session_start();
+require 'method.php';
 
 if (!isset($_SESSION['poker'])) {
     $_SESSION['poker'] = array();
@@ -13,15 +14,21 @@ if (!isset($_SESSION['poker'])) {
         $amount = $_SESSION['poker']['amount'];
     }
 }
+//show/hide the bet chips 
 if ($_GET['bool'] == 'false') {
     $display_chips_on_screen = 'none';
 } else {
     $display_chips_on_screen = 'block';
 }
-
-
-
-
+//if player bet then start the game
+if (isset($_GET['start_game'])) {
+    if ($_GET['start_game'] == 'y') {
+        $e = new Card_deck();
+        $e->start_the_game();
+        $e->shuffle_the_deck();
+        $e->new_game();
+    }
+}
 
 ?>
 <!DOCTYPE html>
@@ -32,14 +39,9 @@ if ($_GET['bool'] == 'false') {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>5 Card Poker</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->
     <link rel="stylesheet" href="style.css">
     <!-- font awesome library -->
-
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
-    <script src="https://kit.fontawesome.com/yourcode.js"></script>
-
     <script src="script.js"></script>
 </head>
 
@@ -54,7 +56,9 @@ if ($_GET['bool'] == 'false') {
             <img src="images/deck_of_card.png" alt="deck_of_card">
         </div>
 
-        <!-- 5 card on table -->
+        <div class="chip_on_table">
+            <img src="images/<?php echo $_GET['chip']; ?>.png" alt=".">
+        </div>
 
         <!-- Button Fast Cash . on click add 100 chip on total amount of player chip -->
         <div id="frm-fast-cash">
@@ -107,13 +111,12 @@ if ($_GET['bool'] == 'false') {
             <h3>Game history</h3>
             <p class="game-hand">
                 <?php echo $hand_history;
-                $e=new Card_deck();
-                $e->start_the_game();
-                echo'faces/'.$e->deck[6]->getSuit().'_'. $e->deck[6]->getFace();
-             
-                  ?>
+
+                var_dump($_SESSION['card_hand']);
+               // echo ($e->check_for_win());
+                ?>
                 <?php
-              
+
 
 
                 ?>
@@ -153,7 +156,7 @@ if ($_GET['bool'] == 'false') {
                                     <span>4 <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
                                     <span>5 <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
                                 </td>
-                                <td><span class="red-dark">50/1</span></td>
+                                <td><span class="red-dark">100/1</span></td>
                             </tr>
                             <tr>
                                 <td>Four of a King</td>
@@ -163,7 +166,7 @@ if ($_GET['bool'] == 'false') {
                                     <span>K <img src="https://img.icons8.com/color/32/000000/kite-shape.png" /></span>
 
                                 </td>
-                                <td><span class="red-dark">25/1</span></td>
+                                <td><span class="red-dark">50/1</span></td>
                             </tr>
                             <tr style="width: 100%">
                                 <td>Full House</td>
@@ -204,7 +207,7 @@ if ($_GET['bool'] == 'false') {
                                     <span>K <i class='fa fa-heart color red'></i></span>
                                     <span>K <img src="https://img.icons8.com/metro/32/000000/spades.png" /></span>
                                 </td>
-                                <td><span class="red-dark">6/1</span></td>
+                                <td><span class="red-dark">5/1</span></td>
                             </tr>
                             <tr>
                                 <td>Two pairs</td>
@@ -213,14 +216,14 @@ if ($_GET['bool'] == 'false') {
                                     <span>Q <i class='fa fa-heart color red'></i></span>
                                     <span>Q <img src="https://img.icons8.com/metro/32/000000/spades.png" /></span>
                                 </td>
-                                <td><span class="red-dark">3/1</span></td>
+                                <td><span class="red-dark">2/1</span></td>
                             </tr>
                             <tr>
                                 <td>One pair</td>
                                 <td><span>K <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
                                     <span>K <img src="https://img.icons8.com/metro/32/000000/spades.png" /></span>
                                 </td>
-                                <td><span class="red-dark">2/1</span></td>
+                                <td><span class="red-dark">1/1</span></td>
                             </tr>
                         </table>
 
@@ -258,10 +261,8 @@ if ($_GET['bool'] == 'false') {
         </div>
         <!-- show the table card only the guest atart thr game -->
         <?php if ($_GET['bool'] == "false") : ?>
-            <?php 
-                 $e->new_game($first_card,$second_card,$third_card,$fourth_card,$fifth_card);
-                 var_dump($fourth_card); ?>
-               
+
+
             <div class="game-start-shown-card">
                 <div class="hover panel">
                     <div class="front">
@@ -271,7 +272,7 @@ if ($_GET['bool'] == 'false') {
                     </div>
                     <div class="back">
                         <div class="pad">
-                            <img src="images/<?php echo $first_card ?>.png"  alt="logo front" />
+                            <img src="images/<?php echo $_SESSION['card_hand']['first_card']; ?>.png" alt="logo front" />
                         </div>
                     </div>
                 </div>
@@ -285,7 +286,7 @@ if ($_GET['bool'] == 'false') {
                     <div class="back">
                         <div class="pad">
 
-                            <img src="images/<?php echo $second_card ?>.png"  alt="logo front" />
+                            <img src="images/<?php echo  $_SESSION['card_hand']['second_card']; ?>.png" alt="logo front" />
                         </div>
                     </div>
                 </div>
@@ -298,7 +299,7 @@ if ($_GET['bool'] == 'false') {
                     </div>
                     <div class="back">
                         <div class="pad">
-                            <img src="images/<?php echo $third_card ?>.png"  alt="logo front" />
+                            <img src="images/<?php echo  $_SESSION['card_hand']['third_card']; ?>.png" alt="logo front" />
                         </div>
                     </div>
                 </div>
@@ -311,7 +312,7 @@ if ($_GET['bool'] == 'false') {
                     </div>
                     <div class="back">
                         <div class="pad">
-                            <img src="images/<?php echo $fourth_card ?>.png"  alt="logo front" />
+                            <img src="images/<?php echo  $_SESSION['card_hand']['fourth_card']; ?>.png" alt="logo front" />
                         </div>
                     </div>
                 </div>
@@ -325,7 +326,7 @@ if ($_GET['bool'] == 'false') {
                     <div class="back">
                         <div class="pad">
 
-                            <img src="images/<?php echo $fifth_card ?>.png" alt="logo front" />
+                            <img src="images/<?php echo  $_SESSION['card_hand']['fifth_card']; ?>.png" alt="logo front" />
                         </div>
                     </div>
                 </div>
