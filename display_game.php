@@ -10,8 +10,13 @@ if (!isset($_SESSION['poker'])) {
     if (isset($_GET['amount'])) {
         $_SESSION['poker']['amount'] = $_GET['amount'];
         $amount = $_SESSION['poker']['amount'];
+
     } else {
         $amount = $_SESSION['poker']['amount'];
+        
+    }
+    if(isset($_SESSION['poker']['history'])){
+        $hand_history=$_SESSION['poker']['history'];
     }
 }
 //show/hide the bet chips 
@@ -25,7 +30,7 @@ if (isset($_GET['start_game'])) {
     if ($_GET['start_game'] == 'y') {
         $e = new Card_deck();
         $e->start_the_game();
-        $e->shuffle_the_deck();
+     //   $e->shuffle_the_deck();
         $e->new_game();
     }
 }
@@ -57,7 +62,13 @@ if (isset($_GET['start_game'])) {
         </div>
 
         <div class="chip_on_table">
-            <img src="images/<?php echo $_GET['chip']; ?>.png" alt=".">
+            <?php if (isset($_GET['chip'])) {
+                $print = <<<msg
+            <img src="images/{$_GET['chip']}.png" alt=".">
+msg;
+                echo $print;
+            }
+            ?>
         </div>
 
         <!-- Button Fast Cash . on click add 100 chip on total amount of player chip -->
@@ -109,18 +120,12 @@ if (isset($_GET['start_game'])) {
         </div>
         <div class="history">
             <h3>Game history</h3>
-            <p class="game-hand">
-                <?php echo $hand_history;
-
-                var_dump($_SESSION['card_hand']);
-               // echo ($e->check_for_win());
-                ?>
+            <p class="game-hand" style="padding: 25px">
                 <?php
 
-
-
+            
+                echo ($e->check_for_win());
                 ?>
-
             </p>
         </div>
 
@@ -272,7 +277,7 @@ if (isset($_GET['start_game'])) {
                     </div>
                     <div class="back">
                         <div class="pad">
-                            <img src="images/<?php echo $_SESSION['card_hand']['first_card']; ?>.png" alt="logo front" />
+                            <img src="images/faces/<?php echo $_SESSION['card_hand']['first_card']; ?>.png" alt="logo front" />
                         </div>
                     </div>
                 </div>
@@ -286,7 +291,7 @@ if (isset($_GET['start_game'])) {
                     <div class="back">
                         <div class="pad">
 
-                            <img src="images/<?php echo  $_SESSION['card_hand']['second_card']; ?>.png" alt="logo front" />
+                            <img src="images/faces/<?php echo  $_SESSION['card_hand']['second_card']; ?>.png" alt="logo front" />
                         </div>
                     </div>
                 </div>
@@ -299,7 +304,7 @@ if (isset($_GET['start_game'])) {
                     </div>
                     <div class="back">
                         <div class="pad">
-                            <img src="images/<?php echo  $_SESSION['card_hand']['third_card']; ?>.png" alt="logo front" />
+                            <img src="images/faces/<?php echo  $_SESSION['card_hand']['third_card']; ?>.png" alt="logo front" />
                         </div>
                     </div>
                 </div>
@@ -312,7 +317,7 @@ if (isset($_GET['start_game'])) {
                     </div>
                     <div class="back">
                         <div class="pad">
-                            <img src="images/<?php echo  $_SESSION['card_hand']['fourth_card']; ?>.png" alt="logo front" />
+                            <img src="images/faces/<?php echo  $_SESSION['card_hand']['fourth_card']; ?>.png" alt="logo front" />
                         </div>
                     </div>
                 </div>
@@ -326,7 +331,7 @@ if (isset($_GET['start_game'])) {
                     <div class="back">
                         <div class="pad">
 
-                            <img src="images/<?php echo  $_SESSION['card_hand']['fifth_card']; ?>.png" alt="logo front" />
+                            <img src="images/faces/<?php echo  $_SESSION['card_hand']['fifth_card']; ?>.png" alt="logo front" />
                         </div>
                     </div>
                 </div>
