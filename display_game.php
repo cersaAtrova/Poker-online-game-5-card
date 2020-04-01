@@ -1,37 +1,65 @@
 <?php
-
 session_start();
 require 'method.php';
 
 if (!isset($_SESSION['poker'])) {
     $_SESSION['poker'] = array();
     $amount = 0;
+    $_SESSION['poker']['buying_chips'] = 0;
 } else {
+    //get the how many times that the player buying chips
+    $_SESSION['poker']['buying_chips'] += $_GET['buying'];
+    //get the amount of the player cache
     if (isset($_GET['amount'])) {
         $_SESSION['poker']['amount'] = $_GET['amount'];
         $amount = $_SESSION['poker']['amount'];
-
     } else {
         $amount = $_SESSION['poker']['amount'];
-        
     }
-    if(isset($_SESSION['poker']['history'])){
-        $hand_history=$_SESSION['poker']['history'];
+    //display history 
+    if (isset($_SESSION['poker']['history'])) {
+        $hand_history = $_SESSION['poker']['history'];
     }
 }
+//get the amount of bet (chip) that player bet 
+if (isset($_GET['chip'])) {
+    $_SESSION['poker']['chip'] = $_GET['chip'];
+}
 //show/hide the bet chips 
-if ($_GET['bool'] == 'false') {
-    $display_chips_on_screen = 'none';
-} else {
-    $display_chips_on_screen = 'block';
+if (isset($_GET['bool'])) {
+    if ($_GET['bool'] == 'false') {
+        $display_chips_on_screen = 'none';
+        $display_button_cash_on_screen = 'none';
+        $display_button_on_screen = 'block';
+    } else {
+        $display_button_cash_on_screen = 'block';
+        $display_button_on_screen = 'none';
+        $display_chips_on_screen = 'block';
+    }
 }
 //if player bet then start the game
 if (isset($_GET['start_game'])) {
     if ($_GET['start_game'] == 'y') {
         $e = new Card_deck();
         $e->start_the_game();
-     //   $e->shuffle_the_deck();
+        $e->shuffle_the_deck();
         $e->new_game();
+    }
+}
+if (isset($_GET['game_finish'])) {
+    if ($_GET['game_finish'] == 'true') {
+
+        $amount = $_GET['amount'] + (Card_deck::win_chips($_SESSION['poker']['check_win']) *  $_SESSION['poker']['chip']);
+        $_SESSION['card_hand']['changed']='n';
+    }
+}
+if (isset($_GET['card_selected'])) {
+    if (($_SESSION['card_hand']['changed'])!='y') {
+        if ($_GET['card_selected'] != 'null') {
+            $_SESSION['card_hand'][$_GET['card_selected']] = $_SESSION['card_hand']['sixth_card'];
+            // if the player change card
+            $_SESSION['card_hand']['changed'] = 'y';
+        }
     }
 }
 
@@ -72,7 +100,7 @@ msg;
         </div>
 
         <!-- Button Fast Cash . on click add 100 chip on total amount of player chip -->
-        <div id="frm-fast-cash">
+        <div id="frm-fast-cash" style="display: <?php echo $display_button_cash_on_screen; ?>">
             <div class="submit">
                 <a class="fast-cash">Fast Cash</a>
             </div>
@@ -106,14 +134,13 @@ msg;
             </div>
 
             <!-- button of deal and showdown -->
-            <form action="display_game.php" method="GET" class="frm-deal">
+            <form action="display_game.php" method="GET" class="frm-deal" style="display: <?php echo $display_button_on_screen; ?>">
                 <div class="form-cotainer-submit">
                     <div class="submit">
-                        <a class="showdown"><?php echo $_GET['click_button']; ?></a>
+                        <a class="showdown"><?php if (isset($_GET['click_button'])) echo  $_GET['click_button']; ?></a>
                     </div>
                     <div class="submit">
                         <a class="deal">Draw</a>
-
                     </div>
                 </div>
             </form>
@@ -122,9 +149,16 @@ msg;
             <h3>Game history</h3>
             <p class="game-hand" style="padding: 25px">
                 <?php
+                if (isset($_GET['start_game'])) {
+                    if (isset($_GET['click_button']) && ($_GET['click_button'] == 'Show down')) {
+                        $_SESSION['poker']['check_win'] = $e->check_for_win();
+                        echo ($e->check_for_win());
+                        echo $amount . '=>' . $e->win_chips($_SESSION['poker']['check_win']) . '=>' . $_SESSION['poker']['chip'];
+                    }
+                }
+                var_dump($_SESSION['poker']);
+                var_dump($amount);
 
-            
-                echo ($e->check_for_win());
                 ?>
             </p>
         </div>
@@ -215,7 +249,7 @@ msg;
                                 <td><span class="red-dark">5/1</span></td>
                             </tr>
                             <tr>
-                                <td>Two pairs</td>
+                                <td>2 Pairs</td>
                                 <td><span>K <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
                                     <span>K <img src="https://img.icons8.com/metro/32/000000/spades.png" /></span>
                                     <span>Q <i class='fa fa-heart color red'></i></span>
@@ -224,7 +258,7 @@ msg;
                                 <td><span class="red-dark">2/1</span></td>
                             </tr>
                             <tr>
-                                <td>One pair</td>
+                                <td>1 Pair</td>
                                 <td><span>K <img src="https://img.icons8.com/ios-filled/32/000000/clubs.png" /></span>
                                     <span>K <img src="https://img.icons8.com/metro/32/000000/spades.png" /></span>
                                 </td>
@@ -277,7 +311,7 @@ msg;
                     </div>
                     <div class="back">
                         <div class="pad">
-                            <img src="images/faces/<?php echo $_SESSION['card_hand']['first_card']; ?>.png" alt="logo front" />
+                            <img data-card-position="first_card" src="images/faces/<?php echo $_SESSION['card_hand']['first_card']; ?>.png" alt="logo front" />
                         </div>
                     </div>
                 </div>
@@ -291,7 +325,7 @@ msg;
                     <div class="back">
                         <div class="pad">
 
-                            <img src="images/faces/<?php echo  $_SESSION['card_hand']['second_card']; ?>.png" alt="logo front" />
+                            <img data-card-position="second_card" src="images/faces/<?php echo  $_SESSION['card_hand']['second_card']; ?>.png" alt="logo front" />
                         </div>
                     </div>
                 </div>
@@ -304,7 +338,7 @@ msg;
                     </div>
                     <div class="back">
                         <div class="pad">
-                            <img src="images/faces/<?php echo  $_SESSION['card_hand']['third_card']; ?>.png" alt="logo front" />
+                            <img data-card-position="third_card" src="images/faces/<?php echo  $_SESSION['card_hand']['third_card']; ?>.png" alt="logo front" />
                         </div>
                     </div>
                 </div>
@@ -317,7 +351,7 @@ msg;
                     </div>
                     <div class="back">
                         <div class="pad">
-                            <img src="images/faces/<?php echo  $_SESSION['card_hand']['fourth_card']; ?>.png" alt="logo front" />
+                            <img data-card-position="fourth_card" src="images/faces/<?php echo  $_SESSION['card_hand']['fourth_card']; ?>.png" alt="logo front" />
                         </div>
                     </div>
                 </div>
@@ -331,7 +365,7 @@ msg;
                     <div class="back">
                         <div class="pad">
 
-                            <img src="images/faces/<?php echo  $_SESSION['card_hand']['fifth_card']; ?>.png" alt="logo front" />
+                            <img data-card-position="fifth_card" src="images/faces/<?php echo  $_SESSION['card_hand']['fifth_card']; ?>.png" alt="logo front" />
                         </div>
                     </div>
                 </div>
