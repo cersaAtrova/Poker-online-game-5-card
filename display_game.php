@@ -17,10 +17,9 @@ if (!isset($_SESSION['poker'])) {
         $amount = $_SESSION['poker']['amount'];
     }
     //display history 
-    if (isset($_SESSION['poker']['history'])) {
-        $hand_history = $_SESSION['poker']['history'];
-    }
+
 }
+
 //get the amount of bet (chip) that player bet 
 if (isset($_GET['chip'])) {
     $_SESSION['poker']['chip'] = $_GET['chip'];
@@ -45,22 +44,35 @@ if (isset($_GET['start_game'])) {
         $e->shuffle_the_deck();
         $e->new_game();
     }
+    if (isset($_GET['click_button']) && ($_GET['click_button'] == 'Show down')) {
+        $_SESSION['poker']['check_win'] = Card_deck::check_for_win($_SESSION['card_hand']['first_card'], $_SESSION['card_hand']['second_card'], $_SESSION['card_hand']['third_card'], $_SESSION['card_hand']['fourth_card'], $_SESSION['card_hand']['fifth_card']);
+    }
 }
 if (isset($_GET['game_finish'])) {
     if ($_GET['game_finish'] == 'true') {
 
+        $_SESSION['poker']['cash_win'] = (Card_deck::win_chips($_SESSION['poker']['check_win']) *  $_SESSION['poker']['chip']);
         $amount = $_GET['amount'] + (Card_deck::win_chips($_SESSION['poker']['check_win']) *  $_SESSION['poker']['chip']);
-        $_SESSION['card_hand']['changed']='n';
+        $his = "You got: {$_SESSION['poker']['check_win']} -> Bet: {$_SESSION['poker']['chip']} -> Win: {$_SESSION['poker']['cash_win']}";
+        $_SESSION['history'][] = $his;
+        $_SESSION['poker']['max-win']=max($_SESSION['poker']['max-win'],$_SESSION['poker']['cash_win']);
+        $_SESSION['poker']['min-win']=min($_SESSION['poker']['max-win'],$_SESSION['poker']['cash_win']);
+        $_SESSION['card_hand']['changed'] = 'n';
+        unset($_SESSION['poker']['chip']);
     }
 }
 if (isset($_GET['card_selected'])) {
-    if (($_SESSION['card_hand']['changed'])!='y') {
+    if (($_SESSION['card_hand']['changed']) != 'y') {
         if ($_GET['card_selected'] != 'null') {
             $_SESSION['card_hand'][$_GET['card_selected']] = $_SESSION['card_hand']['sixth_card'];
             // if the player change card
             $_SESSION['card_hand']['changed'] = 'y';
+            $_SESSION['poker']['check_win'] = Card_deck::check_for_win($_SESSION['card_hand']['first_card'], $_SESSION['card_hand']['second_card'], $_SESSION['card_hand']['third_card'], $_SESSION['card_hand']['fourth_card'], $_SESSION['card_hand']['fifth_card']);
         }
     }
+}
+if (isset($_SESSION['history'])) {
+    $hand_history = $_SESSION['history'];
 }
 
 ?>
@@ -90,11 +102,15 @@ if (isset($_GET['card_selected'])) {
         </div>
 
         <div class="chip_on_table">
-            <?php if (isset($_GET['chip'])) {
+            <?php if (isset($_SESSION['poker']['chip'])) {
                 $print = <<<msg
             <img src="images/{$_GET['chip']}.png" alt=".">
 msg;
                 echo $print;
+            } elseif (isset($_GET['game_finish'])) {
+                if ($_GET['game_finish'] == 'true') {
+                    echo "<p class='white_color_20'> {$_SESSION['poker']['check_win']}. <br/>You win: {$_SESSION['poker']['cash_win']}</p>";
+                }
             }
             ?>
         </div>
@@ -109,7 +125,7 @@ msg;
         <p class="player-amount"><i class="fas fa-euro-sign"></i><span id="amount"><?php echo $amount; ?></span></p>
 
         <!-- close the game and print the result on a record on homepage -->
-        <form action="index.php" method="GET" id="frm-cash-out">
+        <form action="display_results.php" method="GET" id="frm-cash-out">
             <div class="submit">
                 <input type="submit" value="Cash out" name="cash_out" class="cash-out">
             </div>
@@ -149,16 +165,9 @@ msg;
             <h3>Game history</h3>
             <p class="game-hand" style="padding: 25px">
                 <?php
-                if (isset($_GET['start_game'])) {
-                    if (isset($_GET['click_button']) && ($_GET['click_button'] == 'Show down')) {
-                        $_SESSION['poker']['check_win'] = $e->check_for_win();
-                        echo ($e->check_for_win());
-                        echo $amount . '=>' . $e->win_chips($_SESSION['poker']['check_win']) . '=>' . $_SESSION['poker']['chip'];
-                    }
+                foreach ($_SESSION['history'] as $e) {
+                    echo $e . '<br>';
                 }
-                var_dump($_SESSION['poker']);
-                var_dump($amount);
-
                 ?>
             </p>
         </div>
