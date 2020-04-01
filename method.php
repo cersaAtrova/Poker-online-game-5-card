@@ -46,7 +46,7 @@ class Card_deck
         shuffle($this->deck);
     }
     //return the winning profit
-   static function win_chips($win)
+    static function win_chips($win)
     {
         switch ($win) {
             case 'Royal Flush';
@@ -100,14 +100,15 @@ class Card_deck
         $_SESSION['poker']['history'] = $str;
     }
 
-    function check_for_win()
+   static function check_for_win($card1, $card2, $card3, $card4, $card5)
     {
+        $cards=array($card1, $card2, $card3, $card4, $card5);
         //create an array to store the key value
         $arr = array();
         $pos_win_rf_sf_f = true;
-        $same = explode('_', $_SESSION['card_hand']['first_card']);
+        $same = explode('_', $cards[0]);
         //go through the array and check if is all the same and store all thevalue inside the array
-        foreach ($_SESSION['card_hand'] as  $e) {
+        foreach ($cards as  $e) {
             $face_suit = explode('_', $e);
             $arr[] = array_search($face_suit[1], self::FACE);
             if ($face_suit[0] != $same[0]) {
@@ -124,12 +125,12 @@ class Card_deck
         //The  $_SESSION['poker']['win'] and $_SESSION['poker']['not_win'] is to store how many times are the player win or not
         //sort the array from lower to hiegher
         sort($arr);
-        if (!isset(  $_SESSION['poker']['win'])) {
-            $_SESSION['poker']['win']=0;
+        if (!isset($_SESSION['poker']['win'])) {
+            $_SESSION['poker']['win'] = 0;
         }
         //     if the suit is the same the possible winning is RF,SF,FL
         if ($pos_win_rf_sf_f == true) {
-            var_dump(($same_value_in_arr)); //check if is contain ACE in the card hand
+         //check if is contain ACE in the card hand
             if ($arr[0] === 0) {
                 //Add 13 points to ACE and if the total amount of keys is 55 then is Royal flush
                 if (array_sum($arr) + 13 == 55) {
@@ -138,7 +139,6 @@ class Card_deck
                     //if the last value divided by the first value and the result is 4 the is straight flush
                 } else if ($arr[4] - $arr[0] == 4) {
                     $_SESSION['poker']['win'] += 1;
-
                     return 'Straight Flush';
                     //any different result is flush
                 } else {
@@ -185,9 +185,8 @@ class Card_deck
                 if (isset($_SESSION['poker']['not_win'])) {
                     $_SESSION['poker']['not_win'] = $_SESSION['poker']['not_win'] + 1;
                 } else {
-                    $_SESSION['poker']['not_win'] =1;
+                    $_SESSION['poker']['not_win'] = 1;
                 }
-
                 return 'No Pair';
             }
         }
