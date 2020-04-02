@@ -11,6 +11,8 @@ session_start();
     <link rel="stylesheet" href="style.css">
 
 </head>
+<body>
+    
 <div class="home-body-cover">
 
     <div style="padding-top: 100px;">
@@ -22,7 +24,7 @@ session_start();
             </tr>
             <tr>
                 <td>Bought Chips</td>
-                <td><?php echo $_SESSION['poker']['buying_chips']; ?></td>
+                <td><?php echo $_SESSION['poker']['buying_chips']; ?> Times</td>
             </tr>
             <tr>
                 <td>Times You win</td>
@@ -36,13 +38,8 @@ session_start();
                 <td>Maximum Win Record</td>
                 <td><?php echo $_SESSION['poker']['max-win']; ?></td>
             </tr>
-            <tr>
-                <td>Minimum</td>
-                <td><?php echo $_SESSION['poker']['min-win']; ?> 
-            </td>
-            </tr>
 
-       
+
         </table>
     </div>
     <div class="submit play-game">

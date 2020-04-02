@@ -5,7 +5,6 @@ require 'method.php';
 if (!isset($_SESSION['poker'])) {
     $_SESSION['poker'] = array();
     $amount = 0;
-    $_SESSION['poker']['buying_chips'] = 0;
 } else {
     //get the how many times that the player buying chips
     $_SESSION['poker']['buying_chips'] += $_GET['buying'];
@@ -56,7 +55,6 @@ if (isset($_GET['game_finish'])) {
         $his = "You got: {$_SESSION['poker']['check_win']} -> Bet: {$_SESSION['poker']['chip']} -> Win: {$_SESSION['poker']['cash_win']}";
         $_SESSION['history'][] = $his;
         $_SESSION['poker']['max-win']=max($_SESSION['poker']['max-win'],$_SESSION['poker']['cash_win']);
-        $_SESSION['poker']['min-win']=min($_SESSION['poker']['max-win'],$_SESSION['poker']['cash_win']);
         $_SESSION['card_hand']['changed'] = 'n';
         unset($_SESSION['poker']['chip']);
     }
