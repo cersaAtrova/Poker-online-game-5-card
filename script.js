@@ -6,8 +6,7 @@ var flip = (function () {
 $(document).ready(function () {
     var count_buying_chips = 0;
     var value = 0;
-    var count_flip=1500;
-    var card_selected = null;
+    var card_selected = [];
     //on every click Add 100 chips to amount
     $("#frm-fast-cash").click(function () {
         var amount = 100 + parseInt($("#amount").text());
@@ -59,7 +58,7 @@ $(document).ready(function () {
         }
     });
     $('.showdown').click(function () {
-        count_flip=0;
+        count_flip = 0;
 
         if ($('.showdown').text() == "Show down") {
             var hrefAttr = "display_game.php?&buying=" + count_buying_chips + "&bool=false" + '&game_finish=true' + "&start_game=n" + "&amount=" + $('#amount').text() + "&click_button=" + $(".showdown").text("New game").text();
@@ -70,33 +69,38 @@ $(document).ready(function () {
 
         }
     });
-   
 
+//select player cards to discard 
     $(".back .pad img").click(function () {
-        if ($('.back .pad img').hasClass('selected_card')) {
-            if (!$(this).hasClass('selected_card')) {
-                $(".back .pad img").removeClass('selected_card');
-                $(this).addClass('selected_card');
-                card_selected = $(this).attr('data-card-position');
-            } else {
-                $(".back .pad img").removeClass('selected_card');
-            }
+        if (!$(this).hasClass('selected_card')) {
+            card_selected.push($(this).attr('data-card-position'));
+            $(this).toggleClass('selected_card');
         } else {
-            $(this).addClass('selected_card');
-            card_selected = $(this).attr('data-card-position');
+            // card_selected = $.grep(card_selected, function (value) {
+            //     return value != $(this).attr('data-card-position');
+            // });
+            $(this).toggleClass('selected_card');
+            card_selected = [];
+            $(".back .pad img").each(function (i) {
+                if ($(this).hasClass('selected_card')) {
+                    card_selected.push($(this).attr('data-card-position'));
+                }
+            });
         }
+
     });
+//player discart cards with new one
     $('.deal').click(function () {
         if (card_selected != null) {
-            var hrefAttr = "display_game.php?&card_selected="+card_selected+ 
-            '&buying=' + count_buying_chips + "&bool=false" + 
-             "&amount=" + $('#amount').text() + "&click_button=" + $(".showdown").text("Show down").text();
+            var hrefAttr = "display_game.php?&card_selected=" + card_selected +
+                '&buying=' + count_buying_chips + "&bool=false" +
+                "&amount=" + $('#amount').text() + "&click_button=" + $(".showdown").text("Show down").text();
             window.location = hrefAttr;
-      
+
         }
 
     });
     setInterval(() => {
         flip();
-    }, count_flip);
+    }, 800);
 });

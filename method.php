@@ -33,6 +33,7 @@ class Card_deck
     const FACE = array(0 => 'A', 1 => 2, 2 => 3, 3 => 4, 4 => 5, 5 => 6, 6 => 7, 7 => 8, 8 => 9, 9 => 10, 10 => 'J', 11 => 'Q', 12 => 'K');
     const SUIT = array(0 => 'heart', 1 => 'spade', 2 => 'club', 3 => 'diamond');
 
+
     function start_the_game()
     {
         //fill the array with all the cards
@@ -40,6 +41,7 @@ class Card_deck
             $this->deck[$i] = new Card(self::FACE[$i % 13], self::SUIT[$i / 13]);
         }
     }
+
     function shuffle_the_deck()
     {
         //shuffle the cards
@@ -82,7 +84,8 @@ class Card_deck
         }
 
         return $chips;
-    }
+    } //end check result function
+
     function new_game()
     {
         //get the five first card and save it in the session. When is call print the card on the screen
@@ -92,7 +95,12 @@ class Card_deck
         $_SESSION['card_hand']['fourth_card'] =  $this->deck[3]->getSuit() . '_' . $this->deck[3]->getFace();
         $_SESSION['card_hand']['fifth_card'] =  $this->deck[4]->getSuit() . '_' . $this->deck[4]->getFace();
         //use this if the player draw a card
-        $_SESSION['card_hand']['sixth_card'] =  $this->deck[5]->getSuit() . '_' . $this->deck[5]->getFace();
+        $_SESSION['card_hand']['0_card'] =  $this->deck[5]->getSuit() . '_' . $this->deck[5]->getFace();
+        $_SESSION['card_hand']['1_card'] =  $this->deck[6]->getSuit() . '_' . $this->deck[6]->getFace();
+        $_SESSION['card_hand']['2_card'] =  $this->deck[7]->getSuit() . '_' . $this->deck[7]->getFace();
+        $_SESSION['card_hand']['3_card'] =  $this->deck[8]->getSuit() . '_' . $this->deck[8]->getFace();
+        $_SESSION['card_hand']['4_card'] =  $this->deck[9]->getSuit() . '_' . $this->deck[9]->getFace();
+
         $str = '';
         foreach ($_SESSION['card_hand'] as $e) {
             $str .= $e . ' ';
@@ -100,9 +108,9 @@ class Card_deck
         $_SESSION['poker']['history'] = $str;
     }
 
-   static function check_for_win($card1, $card2, $card3, $card4, $card5)
+    static function check_for_win($card1, $card2, $card3, $card4, $card5)
     {
-        $cards=array($card1, $card2, $card3, $card4, $card5);
+        $cards = array($card1, $card2, $card3, $card4, $card5);
         //create an array to store the key value
         $arr = array();
         $pos_win_rf_sf_f = true;
@@ -130,7 +138,7 @@ class Card_deck
         }
         //     if the suit is the same the possible winning is RF,SF,FL
         if ($pos_win_rf_sf_f == true) {
-         //check if is contain ACE in the card hand
+            //check if is contain ACE in the card hand
             if ($arr[0] === 0) {
                 //Add 13 points to ACE and if the total amount of keys is 55 then is Royal flush
                 if (array_sum($arr) + 13 == 55) {
@@ -188,6 +196,35 @@ class Card_deck
                     $_SESSION['poker']['not_win'] = 1;
                 }
                 return 'No Pair';
+            }
+        }
+    } // end check win function
+
+    static function draw_cards($str)
+    {
+        if (!empty($str)) {
+            $arr = explode(',', $str, 5);
+            for ($i = 0; $i < count($arr); $i++) {
+                switch ($arr[$i]) {
+                    case $arr[$i] == 'first_card';
+                        $_SESSION['card_hand']['first_card'] =  $_SESSION['card_hand']["{$i}_card"];
+                        break;
+                    case $arr[$i] == 'second_card';
+                        $_SESSION['card_hand']['second_card'] =  $_SESSION['card_hand']["{$i}_card"];
+                        break;
+
+                    case $arr[$i] == 'third_card';
+                        $_SESSION['card_hand']['third_card'] =  $_SESSION['card_hand']["{$i}_card"];
+                        break;
+
+                    case $arr[$i] == 'fourth_card';
+                        $_SESSION['card_hand']['fourth_card'] =  $_SESSION['card_hand']["{$i}_card"];
+                        break;
+
+                    case $arr[$i] == 'fifth_card';
+                        $_SESSION['card_hand']['fifth_card'] =  $_SESSION['card_hand']["{$i}_card"];
+                        break;
+                }
             }
         }
     }

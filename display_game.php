@@ -5,6 +5,7 @@ require 'method.php';
 if (!isset($_SESSION['poker'])) {
     $_SESSION['poker'] = array();
     $amount = 0;
+    $_SESSION['poker']['max-win']=0;
 } else {
     //get the how many times that the player buying chips
     $_SESSION['poker']['buying_chips'] += $_GET['buying'];
@@ -38,6 +39,7 @@ if (isset($_GET['bool'])) {
 //if player bet then start the game
 if (isset($_GET['start_game'])) {
     if ($_GET['start_game'] == 'y') {
+        $btn_draw='block';
         $e = new Card_deck();
         $e->start_the_game();
         $e->shuffle_the_deck();
@@ -57,14 +59,16 @@ if (isset($_GET['game_finish'])) {
         $_SESSION['poker']['max-win']=max($_SESSION['poker']['max-win'],$_SESSION['poker']['cash_win']);
         $_SESSION['card_hand']['changed'] = 'n';
         unset($_SESSION['poker']['chip']);
+        $btn_draw='none';
     }
 }
 if (isset($_GET['card_selected'])) {
     if (($_SESSION['card_hand']['changed']) != 'y') {
         if ($_GET['card_selected'] != 'null') {
-            $_SESSION['card_hand'][$_GET['card_selected']] = $_SESSION['card_hand']['sixth_card'];
-            // if the player change card
+            Card_deck::draw_cards($_GET['card_selected']);
+           // if the player change card
             $_SESSION['card_hand']['changed'] = 'y';
+            $btn_draw='none';
             $_SESSION['poker']['check_win'] = Card_deck::check_for_win($_SESSION['card_hand']['first_card'], $_SESSION['card_hand']['second_card'], $_SESSION['card_hand']['third_card'], $_SESSION['card_hand']['fourth_card'], $_SESSION['card_hand']['fifth_card']);
         }
     }
@@ -154,7 +158,7 @@ msg;
                         <a class="showdown"><?php if (isset($_GET['click_button'])) echo  $_GET['click_button']; ?></a>
                     </div>
                     <div class="submit">
-                        <a class="deal">Draw</a>
+                        <a class="deal" style="display: <?php echo $btn_draw ?>">Draw</a>
                     </div>
                 </div>
             </form>
