@@ -49,6 +49,18 @@ if (isset($_GET['start_game'])) {
         $_SESSION['poker']['check_win'] = Card_deck::check_for_win($_SESSION['card_hand']['first_card'], $_SESSION['card_hand']['second_card'], $_SESSION['card_hand']['third_card'], $_SESSION['card_hand']['fourth_card'], $_SESSION['card_hand']['fifth_card']);
     }
 }
+
+if (isset($_GET['card_selected'])) {
+    if (($_SESSION['card_hand']['changed']) != 'y') {
+        if ($_GET['card_selected'] != 'null') {
+            Card_deck::draw_cards($_GET['card_selected']);
+           // if the player change card
+            $_SESSION['card_hand']['changed'] = 'y';
+            $btn_draw='none';
+            $_SESSION['poker']['check_win'] = Card_deck::check_for_win($_SESSION['card_hand']['first_card'], $_SESSION['card_hand']['second_card'], $_SESSION['card_hand']['third_card'], $_SESSION['card_hand']['fourth_card'], $_SESSION['card_hand']['fifth_card']);
+        }
+    }
+}
 if (isset($_GET['game_finish'])) {
     if ($_GET['game_finish'] == 'true') {
 
@@ -60,17 +72,6 @@ if (isset($_GET['game_finish'])) {
         $_SESSION['card_hand']['changed'] = 'n';
         unset($_SESSION['poker']['chip']);
         $btn_draw='none';
-    }
-}
-if (isset($_GET['card_selected'])) {
-    if (($_SESSION['card_hand']['changed']) != 'y') {
-        if ($_GET['card_selected'] != 'null') {
-            Card_deck::draw_cards($_GET['card_selected']);
-           // if the player change card
-            $_SESSION['card_hand']['changed'] = 'y';
-            $btn_draw='none';
-            $_SESSION['poker']['check_win'] = Card_deck::check_for_win($_SESSION['card_hand']['first_card'], $_SESSION['card_hand']['second_card'], $_SESSION['card_hand']['third_card'], $_SESSION['card_hand']['fourth_card'], $_SESSION['card_hand']['fifth_card']);
-        }
     }
 }
 if (isset($_SESSION['history'])) {
@@ -157,8 +158,8 @@ msg;
                     <div class="submit">
                         <a class="showdown"><?php if (isset($_GET['click_button'])) echo  $_GET['click_button']; ?></a>
                     </div>
-                    <div class="submit">
-                        <a class="deal" style="display: <?php echo $btn_draw ?>">Draw</a>
+                    <div style="display: <?php echo $btn_draw ?>" class="submit">
+                        <a class="deal" >Draw</a>
                     </div>
                 </div>
             </form>

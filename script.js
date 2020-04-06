@@ -94,7 +94,7 @@ $(document).ready(function () {
         if (card_selected != null) {
             var hrefAttr = "display_game.php?&card_selected=" + card_selected +
                 '&buying=' + count_buying_chips + "&bool=false" +
-                "&amount=" + $('#amount').text() + "&click_button=" + $(".showdown").text("Show down").text();
+                "&amount=" + $('#amount').text() + "&click_button=" + $(".showdown").text("New game").text()+ '&game_finish=true';
             window.location = hrefAttr;
 
         }
